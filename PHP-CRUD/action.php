@@ -2,6 +2,7 @@
     include 'process.php';
     $mysqli = new mysqli('localhost', 'root', '', 'crud') or die(mysqli_error($mysqli));
     $output='';
+    $iddd = 0;
 
     if(isset($_POST['query'])){
         $search=$_POST['query'];
@@ -19,21 +20,29 @@
                     <tr>
                         <th>Name</th>
                         <th>Location</th>
-                        <th colspan="2">Action</th>
+                        <th colspan='2'>Action</th>
                     </tr>
                 </thead>
                 <tbody>";
+        
+        // $iddd = 0;
+
+        // $iddd = $row['id'];
+
+        $iddd = isset($row['id']) ? count($row['id']) : 0;
+
+
         while($row=$result->fetch_assoc()){
             $output .="
             <tr>
-                <td>". echo $row['name']."</td>
-                <td>". echo $row['location']."</td>
+                <td>".$row['name']."</td>
+                <td>".$row['location']."</td>
                 <td>
-                    <a href="index.php?edit=". echo $row['id'].""
-                    class="btn btn-info">Edit</a>
-                    <a href="process.php?delete=". echo $row['id'].""
-                    class="btn btn-danger">Delete</a>
-                </td>   
+                    <a href='index.php?edit=".$iddd."'
+                    class='btn btn-info'>Edit</a>
+                    <a href='process.php?delete=".$iddd."'
+                    class='btn btn-danger'>Delete</a>
+                </td>
             </tr>";
         }
         $output .="</tbody>";
